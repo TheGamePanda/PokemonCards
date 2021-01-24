@@ -1,5 +1,6 @@
 <template>
-  <div style="padding-top:146px;">
+  <div>
+    <!--  <div style="padding-top:146px;">-->
     <div id="card-deck">
       <compPokemon
         v-bind:title="pokemon.name.english"
@@ -18,6 +19,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import compPokemon from "../components/card-component.vue";
 const pokemonList = require("@/pokemon/pokedex.json");
 
@@ -62,28 +64,12 @@ export default {
     #card-deck{
       overflow: scroll;
       overflow-x: hidden;
-      height:calc(100vh - 177px);
+      /*height:calc(100vh - 177px);*/
+      height:100vh;
       padding-top:29px;
       /* Hides scrollbar from page: */
       width:calc(100% + 17.5px);
       margin-right:17.5px;
       z-index:500;
-      }
-    .card{
-        font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        width:315px;
-        height:440px;
-        background-image: linear-gradient(50deg,#fbda00 30%, #ff0 50%, #fbda00 70%);
-        border-radius:12.5px;
-        margin:0 auto;
-        box-shadow: 0.2em 0.2em 0.2em 0.2em #0005;
-        transform-origin: center;
-        transform:scale(0.75);
-        transition-duration: 0.25s;
-        display:inline-block;
-    }
-    .card:hover{
-        transform: scale(1);
-        box-shadow: 0.2em 1em 2em #0005;
     }
 </style>

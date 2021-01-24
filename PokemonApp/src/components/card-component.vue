@@ -1,35 +1,60 @@
 <template>
-    <div class="card">
-        <div class="inner-card" v-bind:style="{'background-color': colours()}">
-            <div class="gradient" v-bind:style="{'background-color': colours()}"></div>
-            <div class="image">
-                <img v-if="health>=90" class="bg-image sparkle" src="../CardBasic/sparkle.gif">
-                <div v-else class="bg-image sparkle"></div>
-                <img class="bg-image pokemon" :src="require('../pokemon/images/' +imageUrl+'.png')">
-                <div class="header">
-                    <h1>{{title}}</h1>
-                    <h2>{{health}} HP</h2>
+    <div class="outer-card" >
+        <div :id=uuid class="card" onclick="moveToCenter(this)">
+            <div class="inner-card" v-bind:style="{'background-color': colours()}">
+                <div class="gradient" v-bind:style="{'background-color': colours()}"></div>
+                <div class="image">
+                    <img v-if="health>=90" class="bg-image sparkle" src="../CardBasic/sparkle.gif">
+                    <div v-else class="bg-image sparkle"></div>
+                    <img class="bg-image pokemon" :src="require('../pokemon/images/' +imageUrl+'.png')">
+                    <div class="header">
+                        <h1>{{title}}</h1>
+                        <h2>{{health}} HP</h2>
+                    </div>
+                </div>
+                <div class="text">
+                    <span class="banner">Pokémon No.{{imageUrl}}</span>
+                    <p style="font-weight:700; color:#000000; text-shadow:0px 2px 5px #00000055;">
+                        <span style="opacity:0.75;">- Pokemon Type - </span><br><br>
+                        <span>
+                            <span style="border:4px solid #fff6; box-shadow:inset 0px 0px 10px #fff6, 0px 5px 10px #0008; background-image:linear-gradient(50deg, #fff0 60%, #fff8 70%, #fff0 95%); padding:5px 10px 7px 10px; border-radius:50px;" v-bind:style="{'background-color' : lookUpColour().colours1[0]}">
+                            {{varType1}}</span>
+                            <span style="text-align:centre;" v-if="varTypeLength === 2">
+                            <span style="color:#000000; opacity:0.75;padding:0px 5px;"> &</span> <span style="border:4px solid #fff6; box-shadow:inset 0px 0px 10px #fff6, 0px 5px 10px #0008; background-image:linear-gradient(50deg, #fff0 60%, #fff8 70%, #fff0 95%); padding:5px 10px 7px 10px; border-radius:50px;" v-bind:style="{'background-color' : lookUpColour().colours2[1]}">{{varType2}}</span>
+                            </span>
+                        </span>
+                    </p>
                 </div>
             </div>
-            <div class="text">
-                <span class="banner">Pokémon No.{{imageUrl}}</span>
-                <p style="font-weight:700; color:#000000; text-shadow:0px 2px 5px #00000055;">
-                    <span style="opacity:0.75;">- Pokemon Type - </span><br><br>
-                    <span>
-                        <span style="border:4px solid #fff6; box-shadow:inset 0px 0px 10px #fff6, 0px 5px 10px #0008; background-image:linear-gradient(50deg, #fff0 60%, #fff8 70%, #fff0 95%); padding:5px 10px 7px 10px; border-radius:50px;" v-bind:style="{'background-color' : lookUpColour().colours1[0]}">
-                        {{varType1}}</span>
-                        <span style="text-align:centre;" v-if="varTypeLength === 2">
-                        <span style="color:#000000; opacity:0.75;padding:0px 5px;"> &</span> <span style="border:4px solid #fff6; box-shadow:inset 0px 0px 10px #fff6, 0px 5px 10px #0008; background-image:linear-gradient(50deg, #fff0 60%, #fff8 70%, #fff0 95%); padding:5px 10px 7px 10px; border-radius:50px;" v-bind:style="{'background-color' : lookUpColour().colours2[1]}">{{varType2}}</span>
-                        </span>
-                    </span>
-                </p>
-            </div>
+            <div :id=tlid onmouseout="fnormal(this)" onmouseover="ftl(this)" class="hover-box hover-top-left"></div>
+            <div :id=blid onmouseout="fnormal(this)" onmouseover="ftr(this)" class="hover-box hover-top-right"></div>
+            <div :id=tlid onmouseout="fnormal(this)" onmouseover="fbl(this)" class="hover-box hover-bottom-left"></div>
+            <div :id=brid onmouseout="fnormal(this)" onmouseover="fbr(this)" class="hover-box hover-bottom-right"></div>
         </div>
     </div>
 </template>
 
 <style scoped>
-    .card > *{pointer-events: none;}
+
+    .outer-card{
+        display:inline-block;
+        width:315px;
+        height:440px;
+        perspective:500px;
+        transition-duration: 1s;
+    }
+    .card{
+        font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        width:100%;
+        height:100%;
+        background-image: linear-gradient(50deg,#fbda00 30%, #ff0 50%, #fbda00 70%);
+        border-radius:12.5px;
+        margin:0 auto;
+        box-shadow: 0.2em 0.2em 0.2em 0.2em #0005;
+        transform-origin: center;
+        transform:scale(0.75);
+        transition-duration: .7s;
+    }
     .inner-card{
         position: relative;
         margin:0 auto;
@@ -61,6 +86,7 @@
         border:#ffff0080 groove 10px;
     }
     .image .bg-image{height: 100%; position: relative;display: block; margin:0 auto !important;}
+    .image{background-image: url('../CardBasic/background.png');background-size: cover;background-position: center bottom;}
     .pokemon{top:-90%; height:80% !important;}
     .sparkle{width:100%;}
     .header{
@@ -121,9 +147,27 @@
 </style>
 
 <script>
+/* eslint-disable */
+
+let uuid = 0;
+
+let tlid = 0;
+let trid = 0;
+let blid = 0;
+let brid = 0;
+
+
 const colorList = require("../pokemon/typesColours.json");
 var imageUrl;
 export default {
+  beforeCreate() {
+    this.uuid = uuid.toString()+'-car';
+    this.tlid = uuid.toString()+'-tlid';
+    this.trid = uuid.toString()+'-trid';
+    this.blid = uuid.toString()+'-blid';
+    this.brid = uuid.toString()+'-brid';
+    uuid += 1;
+  },
     props:{
         title: String,
         health: Number,

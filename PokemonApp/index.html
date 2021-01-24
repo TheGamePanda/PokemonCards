@@ -4,107 +4,280 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Pokemon App</title>
-    <style>
-    html, body{
+    <style>html, body{
       margin:0;
       padding:0;
       font-family: Arial, Helvetica, sans-serif;
-    }
-    body{
+  }
+  body{
       overflow:hidden;
-        z-index: 0;
-        background-color:#dedede;
-    }
-    #toptriangle{
+      z-index: 0;
+      background-color:#dedede;
+  }
+  #toptriangle{
       pointer-events: none;
-        background-image:linear-gradient(50deg,#f22,#f22);
-        box-shadow: inset 0px 0px 50px #353535, 0px 0px 50px #00000050;
-        position: absolute;
-        min-width: 120vw;
-        min-height: 120vw;
-        left:-50%;
-        top:-50%;
-        transform: rotate(-45deg) rotateY(40deg);
-        transition-duration: 2s;
-        border-radius: 2000vw;
-    }
-    .fa{
-        font-size: 75px !important;
-        text-shadow: 2px 5px 5px #00000050;
-        display:block;
-        margin:0 auto;
-        margin-bottom: 20px;
-        transition-duration: 0.35s;
-    }
-    .navbar {
-        position:fixed;
-        z-index: 10;
-        width: 100%;
-        background-color: #353535;
-        overflow:visible;
-        text-align: center;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    }
-    .dropbtn {
-        background-color:#dedede;
-        color: #353535;
-        padding: 16px;
-        width:200px;
-        font-size: 16px;
-        border: none;
-        margin:0 -3px;
-        transition-duration: 0.5s;
-    }
-    .dropdown {
-        position: relative;
-        text-align: center;
-        display: inline-block;
-        margin:0;
-        padding:0;
-    }
-
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        right:0px;
-        left:0px;
-        background-color: #f1f1f100;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        z-index: 1;
-        transition-duration: 0.5s;
-    }
-
-    .dropdown-content a {
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-    }
-
-    .dropdown-content a:hover {background-color: #ddd;}
-    .dropdown:hover .dropdown-content {display: block; opacity:1; background-color: #f1f1f1;}
-
-    .dropdown:hover .dropbtn { color: white;}
-    .dropdown:hover .fa {color: white;}
-    @media only screen and (max-width:591px){
-        .fa{
-            display: none;
-        }
-        .dropdown{
-            display: block;
-            width: max-content;
-            margin: 0 auto;
-        }
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-    }
-    #app{
+      background-image:linear-gradient(50deg,#f22,#f22);
+      box-shadow: inset 0px 0px 50px #353535, 0px 0px 50px #00000050;
+      position: absolute;
+      width: 120vw;
+      height: 120vw;
+      left:-60vw;
+      transform: rotate(-45deg) rotateY(40deg);
+      transition-duration: 2s;
+      border-radius: 2000vw;
+      
+  }
+  .fa{
+      font-size: 75px !important;
+      text-shadow: 2px 5px 5px #00000050;
+      display:block;
+      margin:0 auto;
+      margin-bottom: 20px;
+      transition-duration: 0.35s;
+  }
+  .navbar {
+    display:none;
+      position:fixed;
+      z-index: 10;
+      width: 100%;
+      background-color: #353535;
+      overflow:visible;
+      text-align: center;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  }
+  .dropbtn {
+      background-color:#dedede;
+      color: #353535;
+      padding: 16px;
+      width:200px;
+      font-size: 16px;
+      border: none;
+      margin:0 -3px;
+      transition-duration: 0.5s;
+  }
+  .dropdown {
+      position: relative;
+      text-align: center;
+      display: inline-block;
+      margin:0;
+      padding:0;
+  }
+  
+  .dropdown-content {
+      display: none;
+      position: absolute;
+      right:0px;
+      left:0px;
+      background-color: #f1f1f100;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+      transition-duration: 0.5s;
+  }
+  
+  .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+  }
+  
+  .dropdown-content a:hover {background-color: #ddd;}
+  .dropdown:hover .dropdown-content {display: block; opacity:1; background-color: #f1f1f1;}
+  
+  .dropdown:hover .dropbtn { color: white;}
+  .dropdown:hover .fa {color: white;}
+  @media only screen and (max-width:591px){
+      .fa{
+          display: none;
+      }
+      .dropdown{
+          display: block;
+          width: max-content;
+          margin: 0 auto;
+      }
+      .dropdown:hover .dropdown-content {
+          display: block;
+      }
+  }
+  #app{
       z-index: 100;
-    }
-    </style>
+  }
+  .hover-box {
+      position: relative;
+      width: 50%;
+      height: 50%;
+      float: left;
+      top: calc(-100% + 40px);
+  }
+  .hover-hide{display:none !important;}
+  .card:hover{
+      box-shadow: 3em 3em .6em -.5em #0005 !important;
+  }
+  #screenlocation{
+      position:absolute;
+      color:white;
+      z-index: 500;
+  }
+  #shade-cover {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background-color: #0009;
+      z-index: 500;
+      display: none;
+      left: 0px;
+      top: 0px;
+  }
+  </style>
+    <title>Pokemon App</title>
+      <script>
+        
+        // Reference: http://www.html5rocks.com/en/tutorials/speed/animations/
+
+        let last_known_scroll_position = 0;
+        let ticking = false;
+        let cardDeck = document.getElementById("card-deck");
+        let isClicked = false;
+
+        function doSomething(scroll_pos) {
+          document.getElementById("screenlocation").innerHTML = scroll_pos;
+        }
+
+        document.addEventListener('scroll', function(e) {
+          last_known_scroll_position = cardDeck.scrollY;
+
+          if (!ticking) {
+            window.requestAnimationFrame(function() {
+              doSomething(last_known_scroll_position);
+              ticking = false;
+            });
+
+            ticking = true;
+          }
+        });
+
+
+
+
+      function ftl(x) {
+        x.parentNode.style.transform = "rotateX(5deg) rotateY(-5deg)"; 
+        x.parentNode.style.boxShadow = "0.75em 0.75em 0.75em -.5em #0003"; 
+      }
+      function ftr(x) {
+        x.parentNode.style.transform = "rotateX(5deg) rotateY(5deg)"; 
+        x.parentNode.style.boxShadow = "-0.75em 0.75em 0.75em -.5em #0003"; 
+      }
+      function fbl(x) {
+        x.parentNode.style.transform = "rotateX(-5deg) rotateY(-5deg)"; 
+        x.parentNode.style.boxShadow = "0.75em -0.75em 0.75em -.5em #0003"; 
+      }
+      function fbr(x) {
+        x.parentNode.style.transform = "rotateX(-5deg) rotateY(5deg)"; 
+        x.parentNode.style.boxShadow = "-0.75em -0.75em 0.75em -.5em #0003"; 
+      }
+      function fnormal(x) {
+        if(!isClicked){
+        x.parentNode.style.transform = "scale(0.75) rotateX(0deg) rotateY(0deg)"; 
+        x.parentNode.style.boxShadow = "0.2em 0.2em 0.2em 0.2em #0005";
+        }
+        else{
+        x.parentNode.style.transform = "scale(1) rotateX(0deg) rotateY(0deg)"; 
+        x.parentNode.style.boxShadow = "-0.75em -0.75em 0.75em -.5em #0003"; 
+        }
+      }
+      function calcCenterMove(cardid){
+        var cardparent    = document.getElementById(cardid).parentNode;
+        var x       = cardparent.getBoundingClientRect().x;
+        var y       = cardparent.getBoundingClientRect().y;
+        var width   = cardparent.getBoundingClientRect().width;
+        var height  = cardparent.getBoundingClientRect().height;
+        var cx      = window.innerWidth / 2;
+        var cy      = window.innerHeight / 2;
+        var xVector = cx-(width/2)-x;
+        var yVector = cy-(height/2)-y;
+        return [xVector,yVector];
+      }
+      function moveToCenter(y){
+
+        //Sets assesser for hover animations
+        isClicked = true;
+
+        //Identifies outer-card div (x)
+        const x = y.parentElement;
+        var yid = y.id;
+        //loops through hover-boxes within x and renders them inactive
+        var hoverBoxes = x.getElementsByClassName("hover-box");
+        for (i=0; i < hoverBoxes.length; i++){
+          hoverBoxes[i].classList.add("hover-hide");
+        }
+
+        //Sets properties and style attributes of card (y)
+        y.setAttribute( "onClick", "javascript: moveAwayFromCenter(this);" );
+
+        //Assigns attributes and style properties for x
+        //Sets position as absolute to center on page perfectly
+        //Sets z-index to 1000 to appear in front of other cards shader background
+        //x.style.position = "absolute";
+        var xAxisMove = calcCenterMove(yid)[0];
+        var yAxisMove = calcCenterMove(yid)[1];
+        x.style =   "transform: scale(1) translate("+xAxisMove+"px,"+yAxisMove+"px) !important;"+
+                    "position:sticky;"+
+                    "z-index: 1000;";
+        setTimeout(
+          function(){
+            y.removeAttribute("style");
+            y.style = "transform:unset; box-shadow: 3em 3em .6em -.5em #0005 !important;";
+          }
+        , 1000);
+        
+
+        //Assigns variables for deck of cards and shade 
+        var deck  = document.getElementById("card-deck");
+        var shade = document.getElementById("shade-cover");
+
+        //Prevents user from scrolling and dims background
+        deck.style = "overflow:hidden; width:100%;";
+        shade.style = "display:unset !important;";
+        
+      }
+      function moveAwayFromCenter(y){
+        
+        //Sets assesser for hover animations
+        isClicked = false;
+
+        //Identifies outer-card div (x)
+        var x = y.parentNode;
+
+        //loops through hover-boxes within x and renders them active
+        var hoverHide = x.getElementsByClassName("hover-box");
+        for (i=0; i < hoverHide.length; i++){
+          hoverHide[i].classList.remove("hover-hide");
+        }
+
+        x.style =   "position:sticky;"+
+                    "z-index: 400;"+
+                    "transform: scale(1) translate(0px,0px);";
+        setTimeout(
+          function(){
+            x.style ="position:unset;"+
+                    "z-index: unset;"+
+            y.setAttribute( "onClick", "javascript: moveToCenter(this);");
+            y.style = "box-shadow: 0.2em 0.2em 0.2em 0.2em #0005;";
+          }
+        , 1000);
+        
+        
+        
+        //Allows user to scroll and shows background
+        var deck  = document.getElementById("card-deck");
+        var shade = document.getElementById("shade-cover");
+        deck.style.removeProperty("overflow");
+        deck.style = "width:calc(100% + 17.5px);";
+        shade.style = "display:none !important;";
+      }
+
+    </script>
   </head>
   <body>
     <div id="toptriangle">
@@ -129,5 +302,6 @@
       </div>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+    <div id="shade-cover"></div>
   </body>
 </html>
